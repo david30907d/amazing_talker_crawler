@@ -4,11 +4,12 @@ from tenacity import retry, wait_fixed, stop_after_delay, stop_after_attempt
 
 
 class AmazingTalker(object):
-    def __init__(self, lang):
+    def __init__(self, lang, page_num_upperbound):
         self._lang = lang
         self._prefix = "https://tw.amazingtalker.com"
         self._url = f"{self._prefix}/tutors/{lang}"
         self._sess = requests.session()
+        self._page_num_upperbound = page_num_upperbound
 
     @property
     def lang(self):
@@ -29,8 +30,12 @@ class AmazingTalker(object):
     def sess(self):
         return self._sess
 
+    @property
+    def page_num_upperbound(self):
+        return self._page_num_upperbound
+
     def crawl_every_page(self):
-        for page_num in range(1, 50):
+        for page_num in range(1, self.page_num_upperbound):
             if self._crawl_single_page(page_num) == "fail":
                 break
 
@@ -65,8 +70,8 @@ class AmazingTalker(object):
 
 
 if __name__ == "__main__":
-    a = AmazingTalker(lang="japanese")
+    a = AmazingTalker(lang="japanese", page_num_upperbound=50)
     a.crawl_every_page()
 
-    a = AmazingTalker(lang="english")
+    a = AmazingTalker(lang="english", page_num_upperbound=50)
     a.crawl_every_page()
