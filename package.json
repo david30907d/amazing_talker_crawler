@@ -4,7 +4,7 @@
   "description": "[![Build Status](https://travis-ci.com/Dcard/Dcard-Data-Team-Repo-Template.svg?token=FjZQpfwxUNPpEosXv6sy&branch=master)](https://travis-ci.com/Dcard/Dcard-Data-Team-Repo-Template)",
   "main": "index.js",
   "scripts": {
-    "test": "pytest -s --cov=project --cov-fail-under=50 --cov-report=term-missing tests",
+    "test": "pytest --cov=project --cov-fail-under=50 --cov-report=term-missing tests",
     "commit": "git-cz"
   },
   "husky": {

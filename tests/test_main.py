@@ -20,3 +20,17 @@ def test_crawl_single_page(amazing_talker_obj):
     if __debug__:
         if resp:
             raise AssertionError("something wrong in crawl_single_page")
+
+
+def test_sort_tutors(amazing_talker_obj):
+    resp = amazing_talker_obj.sort_tutors()
+    if __debug__:
+        if not isinstance(resp, AmazingTalker):
+            raise AssertionError("something wrong in sort_tutors")
+
+
+def test_show_tutors(amazing_talker_obj):
+    resp = amazing_talker_obj.show_tutors()
+    if __debug__:
+        if resp:
+            raise AssertionError("something wrong in show_tutors")
