@@ -5,9 +5,14 @@ from tenacity import retry, wait_fixed, stop_after_delay, stop_after_attempt
 
 class AmazingTalker(object):
     def __init__(self, lang):
+        self._lang = lang
         self._prefix = "https://tw.amazingtalker.com"
         self._url = f"{self._prefix}/tutors/{lang}"
         self._sess = requests.session()
+
+    @property
+    def lang(self):
+        return self._lang
 
     @property
     def url_prefix(self):
@@ -49,6 +54,7 @@ class AmazingTalker(object):
         )
 
     def _output(self, payloads):
+        print(f"----- {self.lang} -----")
         for booking_status, name_and_rating, price in payloads:
             if booking_status.text == "預約立即體驗":
                 print(
@@ -60,4 +66,7 @@ class AmazingTalker(object):
 
 if __name__ == "__main__":
     a = AmazingTalker(lang="japanese")
+    a.crawl_every_page()
+
+    a = AmazingTalker(lang="english")
     a.crawl_every_page()
